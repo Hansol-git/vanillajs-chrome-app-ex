@@ -1,7 +1,9 @@
-const toDoForm = document.querySelector(".js-toDoForm"),
+const toDoContainer = document.querySelector(".todo-container"),
+  toDoForm = toDoContainer.querySelector(".js-toDoForm"),
   toDoInput = toDoForm.querySelector("input"),
-  toDoList = document.querySelector(".js-toDoList");
+  toDoList = toDoContainer.querySelector(".js-toDoList");
 
+// const SHOWING_OFF = "not-showing";
 const TODOS_LS = "toDos";
 let toDos = [];
 
@@ -24,12 +26,18 @@ function paintToDo(text) {
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
   const span = document.createElement("span");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "done";
+  span.className = "todo-element";
   const newId = toDos.length + 1;
   delBtn.innerText = "✖️";
+  delBtn.className = "del-btn";
   delBtn.addEventListener("click", deleteToDo);
   span.innerText = text;
-  li.appendChild(delBtn);
+  li.appendChild(checkbox);
   li.appendChild(span);
+  li.appendChild(delBtn);
   li.id = newId;
   toDoList.appendChild(li);
   const toDoObj = {
@@ -48,6 +56,11 @@ function handleSubmit(event) {
 }
 
 function loadToDos() {
+  const loadedUser = localStorage.getItem(USER_LS);
+  if (!loadedUser) {
+    toDoContainer.classList.add(SHOWING_OFF);
+  } else {
+  }
   const loadedToDos = localStorage.getItem(TODOS_LS);
   if (loadedToDos) {
     const parsedToDos = JSON.parse(loadedToDos);
