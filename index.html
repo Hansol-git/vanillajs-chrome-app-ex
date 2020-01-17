@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>✍️To-do List✔️</title>
     <link rel="stylesheet" href="index.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i&display=swap"
@@ -13,6 +13,12 @@
     <link
       href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+      integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M"
+      crossorigin="anonymous"
     />
   </head>
   <body>
@@ -24,14 +30,14 @@
       <div class="login-name">
         <span class="ask-name"> </span>
         <form class="js-form">
-          <input type="text" class="input-box" />
+          <input type="text" class="input-box" required="true" autofocus />
         </form>
       </div>
       <h4 class="js-greetings greetings"></h4>
       <div class="todo-container">
         <span class="ask-todo">What is your To-do today?</span>
         <form class="js-toDoForm">
-          <input type="text" class="input-todo input-box" />
+          <input type="text" class="input-todo input-box" required="true" />
         </form>
         <ul class="js-toDoList"></ul>
         <div class="clearAll-btn">Clear All</div>
@@ -41,7 +47,9 @@
     <div class="smallScreen">
       <span class="smallScreen__text">Please make your screen bigger</span>
     </div>
+    <span class="weather-name"></span>
     <span class="js-weather"></span>
+
     <script src="clock.js"></script>
     <script src="greeting.js"></script>
     <script src="todo.js"></script>
