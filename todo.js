@@ -8,7 +8,6 @@ const TODOS_LS = "toDos";
 let toDos = [];
 
 function deleteToDo(event) {
-  // console.log(event.target.parentNode.parentNode);
   const btn = event.target;
   const li = btn.parentNode.parentNode;
   toDoList.removeChild(li);
@@ -28,15 +27,21 @@ function paintToDo(text) {
   const delBtn = document.createElement("button");
   const span = document.createElement("span");
   const checkbox = document.createElement("input");
+  const label = document.createElement("label");
   checkbox.type = "checkbox";
   checkbox.className = "done";
   span.className = "todo-element";
-  const newId = toDos.length + 1;
+  const ranNumId = Math.floor(Math.random() * 10000);
+  const newId = ranNumId;
+  const checkboxId = `check-${newId}`;
+  checkbox.id = checkboxId;
+  label.htmlFor = checkboxId;
   delBtn.innerHTML = `<i class="far fa-times-circle"></i>`;
   delBtn.className = "del-btn";
   delBtn.addEventListener("click", deleteToDo);
   span.innerText = text;
   li.appendChild(checkbox);
+  li.appendChild(label);
   li.appendChild(span);
   li.appendChild(delBtn);
   li.id = newId;

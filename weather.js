@@ -47,7 +47,8 @@ function getWeather(lat, lon) {
       const temperature = json.weather.hourly[0].temperature.tc;
       const place = json.weather.hourly[0].grid.county;
       const weatherCode = json.weather.hourly[0].sky.code;
-      weatherName.innerHTML = getWeatherIcon(weatherCode);
+      const weatherDesc = json.weather.hourly[0].sky.name;
+      weatherName.innerHTML = `${getWeatherIcon(weatherCode)}, ${weatherDesc}`;
       weather.innerText = `${temperature}°C @ ${place}`;
     });
 }
