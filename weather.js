@@ -1,19 +1,55 @@
 const weather = document.querySelector(".js-weather");
+const weatherName = document.querySelector(".weather-name");
 
-const API_KEY = "6aed41e5b3ce963021d620ce9e1df8f1";
+// openweathermap API
+// const API_KEY = "6aed41e5b3ce963021d620ce9e1df8f1";
+
+// SK open API
+const API_KEY = "l7xxcb78dbf0928a4c2192bca17d66625278";
 const COORDS = "coords";
 
+function getWeatherIcon(sky_code) {
+  if (sky_code === "SKY_O07" || sky_code === "SKY_O03") {
+    return `<i class="fas fa-cloud"></i>`;
+  } else if (sky_code === "SKY_O01") {
+    return `<i class="far fa-sun"></i>`;
+  } else if (sky_code === "SKY_O02") {
+    return `<i class="fas fa-cloud-sun"></i>`;
+  } else if (sky_code === "SKY_O04" || sky_code === "SKY_O08") {
+    return `<i class="fas fa-cloud-rain"></i>`;
+  } else if (sky_code === "SKY_O05" || sky_code === "SKY_O09") {
+    return `<i class="far fa-snowflake"></i>`;
+  } else if (sky_code === "SKY_O06" || sky_code === "SKY_O10") {
+    return `<i class="fas fa-umbrella"></i> <span> / </span> <i class="far fa-snowflake"></i>`;
+  } else {
+    return `<i class="fas fa-bolt"></i>`;
+  }
+}
+
 function getWeather(lat, lon) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric
-      `)
+  //   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric
+  //         `)
+  //     .then(function(response) {
+  //       return response.json();
+  //     })
+  //     .then(function(json) {
+  //       const temperature = json.main.temp;
+  //       const place = json.name;
+  //       const nation = json.sys.country;
+  //       weather.innerText = `${temperature}°C @ ${place}, ${nation}`;
+  //     });
+  fetch(`https://apis.openapi.sk.com/weather/current/hourly?appKey=${API_KEY}&version=1&lat=${lat}&lon=${lon}
+    `)
     .then(function(response) {
       return response.json();
     })
     .then(function(json) {
-      const temperature = json.main.temp;
-      const place = json.name;
-      const nation = json.sys.country;
-      weather.innerText = `${temperature}°C @ ${place}, ${nation}`;
+      const temperature = json.weather.hourly[0].temperature.tc;
+      const place = json.weather.hourly[0].grid.county;
+      const weatherCode = json.weather.hourly[0].sky.code;
+      const weatherDesc = json.weather.hourly[0].sky.name;
+      weatherName.innerHTML = `${getWeatherIcon(weatherCode)}, ${weatherDesc}`;
+      weather.innerText = `${temperature}°C @ ${place}`;
     });
 }
 
@@ -46,7 +82,7 @@ function loadCoords() {
     askForCoords();
   } else {
     const parseCoords = JSON.parse(loadedCoords);
-    console.log(getWeather(parseCoords.latitude, parseCoords.longitude));
+    getWeather(parseCoords.latitude, parseCoords.longitude);
   }
 }
 
